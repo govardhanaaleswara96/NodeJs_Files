@@ -6,7 +6,9 @@ const loggerMiddleware = require("./middleware/logger");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 // load router files
-const bootcampRouter = require("./routes/bootcamps");
+const bootCampRouter = require("./routes/bootcamps");
+const courseRouter = require("./routes/courses");
+
 //load env vars
 dotenv.config({ path: "./config/config.env" });
 // connect to database
@@ -17,13 +19,14 @@ const app = express();
 //body parser
 app.use(express.json());
 
-// app.use(loggerMiddleware);
+//app.use(loggerMiddleware);
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
 // routes
-app.use("/api/v1/bootcamps", bootcampRouter);
+app.use("/api/v1/bootcamps", bootCampRouter);
+app.use("/api/v1/courses", courseRouter);
 
 //middleware for error
 app.use(errorHandler);
